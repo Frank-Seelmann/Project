@@ -1,0 +1,50 @@
+body {
+    font: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 400;
+}
+
+form {
+    border: 1px solid #212529;
+    margin: auto;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 20px;
+}
+
+label {
+    padding: 3px 10px 5px 0px;
+    margin: 10px auto;
+    display: inline-block;
+}
+
+input {
+    padding: 3px 0px;
+    margin: 10px auto;
+    float: right;
+}
+
+input[type="submit"] {
+    background-color: #212529;
+    color: white;
+    display: block;
+    margin: 10px auto;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 20px;
+}
+
+p {
+    margin: auto;
+    font-weight: 350;
+}
+
+a {
+    text-decoration: none;
+}
