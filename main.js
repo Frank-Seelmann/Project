@@ -47,8 +47,9 @@ class Profile {
 }
 
 class Project {
-    constructor(projectId, projectText, likes, comments, tags) {
+    constructor(projectId, projectName, projectText, likes, comments, tags) {
         this.projectId = projectId;
+        this.projectName = projectName;
         this.projectText = projectText;
         this.projectLikes = likes;
         this.projectComments = comments;
@@ -57,6 +58,7 @@ class Project {
 
     //getters
     getProjectId() { return this.projectId };
+    getProjectName() { return this.projectName };
     getProjectText() { return this.projectText };
     getProjectLikes() { return this.projectLikes };
     getProjectComments() { return this.projectComments };
@@ -93,3 +95,31 @@ class Comment {
     setUserId(userId) { this.userId = userId };
     setProjectId(projectId) { this.projectId = projectId };
 }
+
+const user1 = new User(1, "John Doe", "jdoe@email.com", "password", true);
+
+const profile1 = new Profile(1, 1, "2020-01-01", "2020-01-01", "https://th.bing.com/th/id/OIP.E4gCagrjAkQ5td5qjSc3rwHaE7?pid=ImgDet&rs=1");
+
+const comment1 = new Comment(1, "This is a comment!", "2020-01-01", 1, 1);
+
+const project1 = new Project(1, "Project 1", "This is the first project", 2, [comment1], ["tag1", "tag2"]);
+
+
+
+let displayProjectHTML = document.getElementById("displayProject");
+
+//displayProjects;
+
+//function displayProjects() {
+    let section = 
+    `
+        <div class="card-body">
+            <h2>${project1.getProjectName()}</h2>
+            <p>${project1.getProjectText()}</p>
+            <p>${project1.getProjectLikes()} likes</p>
+            <p>${project1.getProjectComments()} comments</p>
+            <p>${project1.getProjectTags()}</p>
+        </div>
+    `
+    displayProjectHTML.innerHTML += section;
+//}
