@@ -47,9 +47,11 @@ class Profile {
 }
 
 class Project {
-    constructor(projectId, projectName, projectText, likes, comments, tags) {
+    constructor(projectId, projectName, projectGitHub, projectThumbnail, projectText, likes, comments, tags) {
         this.projectId = projectId;
         this.projectName = projectName;
+        this.projectGitHub = projectGitHub;
+        this.projectThumbnail = projectThumbnail;
         this.projectText = projectText;
         this.projectLikes = likes;
         this.projectComments = comments;
@@ -59,6 +61,8 @@ class Project {
     //getters
     getProjectId() { return this.projectId };
     getProjectName() { return this.projectName };
+    getProjectGitHub() { return this.projectGitHub };
+    getProjectThumbnail() { return this.projectThumbnail };
     getProjectText() { return this.projectText };
     getProjectLikes() { return this.projectLikes };
     getProjectComments() { return this.projectComments };
@@ -66,6 +70,9 @@ class Project {
 
     //setters
     setProjectId(id) { this.projectId = id };
+    setProjectName(name) { this.projectName = name };
+    setProjectGitHub(gitHub) { this.projectGitHub = gitHub };
+    setProjectThumbnail(thumbnail) { this.projectThumbnail = thumbnail };
     setProjectText(text) { this.projectText = text };
     setProjectLikes(likes) { this.projectLikes = likes };
     setProjectComments(comments) { this.projectComments = comments };
@@ -102,7 +109,7 @@ const profile1 = new Profile(1, 1, "2020-01-01", "2020-01-01", "https://th.bing.
 
 const comment1 = new Comment(1, "This is a comment!", "2020-01-01", 1, 1);
 
-const project1 = new Project(1, "Project 1", "This is the first project", 2, [comment1], ["tag1", "tag2"]);
+const project1 = new Project(1, "Project 1", "github link", "", "This is the first project", 2, [comment1], ["tag1", "tag2"]);
 
 
 
@@ -111,15 +118,24 @@ let displayProjectHTML = document.getElementById("displayProject");
 //displayProjects;
 
 //function displayProjects() {
-    let section = 
+let section =
     `
+    <img class="card-img-top" src="${project1.getProjectThumbnail()}" alt="Card image cap">
         <div class="card-body">
             <h2>${project1.getProjectName()}</h2>
             <p>${project1.getProjectText()}</p>
+            <p>${project1.getProjectGitHub()}</p>
             <p>${project1.getProjectLikes()} likes</p>
             <p>${project1.getProjectComments()} comments</p>
             <p>${project1.getProjectTags()}</p>
+            <form action="#">
+                <textarea name="comment" id="comment" rows="2" cols="30"></textarea>
+                <br>
+                <label for="comment"><button type="button" class="btn btn-primary" id="newComment">
+                <i class="fa-solid fa-comment"></i> Add comment</button></label>
+            </form>
+            
         </div>
     `
-    displayProjectHTML.innerHTML += section;
+displayProjectHTML.innerHTML += section;
 //}
