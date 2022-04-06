@@ -1,9 +1,10 @@
 class User {
-    constructor(id, userName, email, password, isAdmin) {
+    constructor(id, userName, email, password, birthDate, isAdmin) {
         this.userId = id;
         this.userName = userName;
         this.userEmail = email;
         this.password = password;
+        this.birthDate = birthDate;
         this.isAdmin = isAdmin;
     }
 
@@ -13,6 +14,7 @@ class User {
     getIsAdmin() { return this.isAdmin };
     getUserEmail() { return this.userEmail };
     getPassword() { return this.password };
+    getBirthDate() { return this.birthDate };
 
     //setters
     setUserId(id) { this.userId = id };
@@ -20,6 +22,7 @@ class User {
     setUserEmail(email) { this.userEmail = email };
     setPassword(password) { this.password = password };
     setIsAdmin(isAdmin) { this.isAdmin = isAdmin };
+    setBirthDate(birthDate) { this.birthDate = birthDate };
 }
 
 class Profile {
@@ -116,7 +119,7 @@ const project1 = new Project(1, "Project 1", "github link", "", "This is the fir
 let displayProjectHTML = document.getElementById("displayProject");
 
 //displayProjects;
-
+/*
 //function displayProjects() {
 let section =
     `
@@ -139,3 +142,21 @@ let section =
     `
 displayProjectHTML.innerHTML += section;
 //}
+*/
+let form = document.getElementById("signup");
+form.addEventListener('submit', addUser);
+
+function addUser(e) {
+    e.preventDefault();
+
+    newUser = new User(
+        2,
+        document.getElementById("userName").value,
+        document.getElementById("email").value,
+        document.getElementById("pswd").value,
+        document.getElementById("birthDate").value,
+        false
+    );
+
+    console.log(newUser);
+}
