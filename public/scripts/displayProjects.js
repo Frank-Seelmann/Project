@@ -114,12 +114,10 @@ const comment1 = new Comment(1, "This is a comment!", "2020-01-01", 1, 1);
 
 const project1 = new Project(1, "Project 1", "github link", "", "This is the first project", 2, [comment1], ["tag1", "tag2"]);
 
-
-
 let displayProjectHTML = document.getElementById("displayProject");
 
 //displayProjects;
-/*
+
 //function displayProjects() {
 let section =
     `
@@ -141,22 +139,3 @@ let section =
         </div>
     `
 displayProjectHTML.innerHTML += section;
-//}
-*/
-let form = document.getElementById("signup");
-form.addEventListener('submit', addUser);
-
-function addUser(e) {
-    e.preventDefault();
-
-    newUser = new User(
-        2,
-        document.getElementById("userName").value,
-        document.getElementById("email").value,
-        document.getElementById("pswd").value,
-        document.getElementById("birthDate").value,
-        false
-    );
-
-    console.log(newUser);
-}
