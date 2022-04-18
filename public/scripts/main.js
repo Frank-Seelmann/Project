@@ -1,6 +1,6 @@
 class User {
     constructor(id, userName, email, password, birthDate, isAdmin) {
-        this.userId = id;
+        this.userId = id; //primary key
         this.userName = userName;
         this.userEmail = email;
         this.password = password;
@@ -27,8 +27,8 @@ class User {
 
 class Profile {
     constructor(profileId, userId, dateCreated, lastLoginDate, profilePicture) {
-        this.profileId = profileId;
-        this.userId = userId;
+        this.profileId = profileId; //primary key
+        this.userId = userId; //foreign key
         this.profileDateCreated = dateCreated;
         this.lastLoginDate = lastLoginDate;
         this.profilePicture = profilePicture;
@@ -51,7 +51,7 @@ class Profile {
 
 class Project {
     constructor(projectId, projectName, projectGitHub, projectThumbnail, projectText, likes, comments, tags) {
-        this.projectId = projectId;
+        this.projectId = projectId; //primary key
         this.projectName = projectName;
         this.projectGitHub = projectGitHub;
         this.projectThumbnail = projectThumbnail;
@@ -84,11 +84,11 @@ class Project {
 
 class Comment {
     constructor(commentId, commentText, commentDate, userId, projectId) {
-        this.commentId = commentId;
+        this.commentId = commentId; //primary key
         this.commentText = commentText;
         this.commentDate = commentDate;
-        this.userId = userId;
-        this.projectId = projectId;
+        this.userId = userId; //foreign key
+        this.projectId = projectId; //foreign key
     }
 
     //getters
