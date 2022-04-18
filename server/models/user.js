@@ -20,6 +20,14 @@ const users = [
 //function to get all users
 let getUsers = () => users;
 
+async function login(username, password) {
+    const user = users.filter((u) => u.userName === username);
+    if(!user) throw Error("User not found");
+    if(user[0].userPassword !== password) throw Error("Wrong password");
+
+    this.currentUser = user[0];
+    return user[0];
+};
 
 //export to use in other files
-module.exports = { getUsers };
+module.exports = { getUsers, login };
