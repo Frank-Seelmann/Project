@@ -2,16 +2,16 @@ const users = [
     {
         userId: 1,
         userName: "John Doe",
-        userEmail: "jdoe@email.com",
-        userPassword: "password",
+        userEmail: "jdoe@email.com", 
+        password: "password",
         birthDate: "01/01/2000",
-        userIsAdmin: true,
+        isAdmin: true
     },
     {
         userId: 2,
         userName: "Jane Doe",
         userEmail: "janedoe@email.com",
-        userPassword: "password2",
+        password: "password2",
         birthDate: "02/02/2000",
         userIsAdmin: false,
     },
