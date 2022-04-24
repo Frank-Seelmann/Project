@@ -13,35 +13,40 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="home.html">Frank Seelmann</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="projects.html">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="resume.html">Resume</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Contact</a>
-                    </li>
-                </ul>
-                <a href="login.html"><button type="button" class="btn btn-outline-secondary">Login</button></a>
-                <a href="signup.html"><button type="button" class="btn btn-outline-primary">Sign Up</button></a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="home.html">Frank Seelmann</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="projects.html">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="resume.html">Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <section id="loginbadge"></section>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <div id="displayProfile"></div>
+    <main>
+        <div id="displayProfile"></div>
+    </main>
 
     <footer class="bg-dark text-center text-lg-start fixed-bottom">
         <div class="text-center p-3">
