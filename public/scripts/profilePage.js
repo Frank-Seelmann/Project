@@ -1,3 +1,7 @@
+import { getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData } from './main.js'
+
+let user = getCurrentUser();
+
 let displayProfileHTML = document.getElementById("displayProfile");
 
 //displayProjects;

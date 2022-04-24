@@ -1,134 +1,63 @@
-class User {
-    constructor(id, userName, email, password, birthDate, isAdmin) {
-        this.userId = id; //primary key
-        this.userName = userName;
-        this.userEmail = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.isAdmin = isAdmin;
+let user;
+let loginbadge
+if (loginbadge = document.getElementById('loginbadge')) {
+    if (user = getCurrentUser()) {
+        loginbadge.innerHTML =
+            `
+    <div class="white">Hello ${user.userName}!</div>
+    `;
+    } else {
+        loginbadge.innerHTML = `
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a href="login.html" class="justify-content-end"><button type="button" class="btn btn-outline-secondary justify-content-end">Login</button></a>
+        </li>
+        <li class="nav-item">
+            <a href="signup.html" class="justify-content-end"><button type="button" class="btn btn-outline-primary justify-content-end">Sign Up</button></a>
+        </li>
+    </ul>
+  `
     }
-
-    //getters
-    getUserId() { return this.userId };
-    getUserName() { return this.userName };
-    getIsAdmin() { return this.isAdmin };
-    getUserEmail() { return this.userEmail };
-    getPassword() { return this.password };
-    getBirthDate() { return this.birthDate };
-
-    //setters
-    setUserId(id) { this.userId = id };
-    setUserName(userName) { this.userName = userName };
-    setUserEmail(email) { this.userEmail = email };
-    setPassword(password) { this.password = password };
-    setIsAdmin(isAdmin) { this.isAdmin = isAdmin };
-    setBirthDate(birthDate) { this.birthDate = birthDate };
 }
 
-class Profile {
-    constructor(profileId, userId, dateCreated, lastLoginDate, profilePicture) {
-        this.profileId = profileId; //primary key
-        this.userId = userId; //foreign key
-        this.profileDateCreated = dateCreated;
-        this.lastLoginDate = lastLoginDate;
-        this.profilePicture = profilePicture;
+// Fetch method implementation:
+export async function fetchData(url = '', data = {}, methodType) {
+    const response = await fetch(`http://localhost:3000${url}`, {
+        method: methodType, // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    });
+    if (response.ok) {
+        return await response.json(); // parses JSON response into native JavaScript objects
+    } else {
+        throw await response.json();
     }
-
-    //getters
-    getProfileId() { return this.profileId };
-    getUserId() { return this.userId };
-    getProfileDateCreated() { return this.profileDateCreated };
-    getLastLoginDate() { return this.lastLoginDate };
-    getProfilePicture() { return this.profilePicture };
-
-    //setters
-    setProfileId(id) { this.profileId = id };
-    setUserId(userId) { this.userId = userId };
-    setProfileDateCreated(dateCreated) { this.profileDateCreated = dateCreated };
-    setLastLoginDate(lastLoginDate) { this.lastLoginDate = lastLoginDate };
-    setProfilePicture(profilePicture) { this.profilePicture = profilePicture };
 }
 
-class Project {
-    constructor(projectId, projectName, projectGitHub, projectThumbnail, projectText, likes, comments, tags) {
-        this.projectId = projectId; //primary key
-        this.projectName = projectName;
-        this.projectGitHub = projectGitHub;
-        this.projectThumbnail = projectThumbnail;
-        this.projectText = projectText;
-        this.projectLikes = likes;
-        this.projectComments = comments;
-        this.projectTags = tags;
-    }
-
-    //getters
-    getProjectId() { return this.projectId };
-    getProjectName() { return this.projectName };
-    getProjectGitHub() { return this.projectGitHub };
-    getProjectThumbnail() { return this.projectThumbnail };
-    getProjectText() { return this.projectText };
-    getProjectLikes() { return this.projectLikes };
-    getProjectComments() { return this.projectComments };
-    getProjectTags() { return this.projectTags };
-
-    //setters
-    setProjectId(id) { this.projectId = id };
-    setProjectName(name) { this.projectName = name };
-    setProjectGitHub(gitHub) { this.projectGitHub = gitHub };
-    setProjectThumbnail(thumbnail) { this.projectThumbnail = thumbnail };
-    setProjectText(text) { this.projectText = text };
-    setProjectLikes(likes) { this.projectLikes = likes };
-    setProjectComments(comments) { this.projectComments = comments };
-    setProjectTags(tags) { this.projectTags = tags };
+export function setCurrentUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
 }
 
-class Comment {
-    constructor(commentId, commentText, commentDate, userId, projectId) {
-        this.commentId = commentId; //primary key
-        this.commentText = commentText;
-        this.commentDate = commentDate;
-        this.userId = userId; //foreign key
-        this.projectId = projectId; //foreign key
-    }
-
-    //getters
-    getCommentId() { return this.commentId };
-    getCommentText() { return this.commentText };
-    getCommentDate() { return this.commentDate };
-    getUserId() { return this.userId };
-    getProjectId() { return this.projectId };
-
-    //setters
-    setCommentId(id) { this.commentId = id };
-    setCommentText(text) { this.commentText = text };
-    setCommentDate(date) { this.commentDate = date };
-    setUserId(userId) { this.userId = userId };
-    setProjectId(projectId) { this.projectId = projectId };
+export function removeCurrentUser() {
+    localStorage.removeItem('user')
 }
 
-const user1 = new User(1, "John Doe", "jdoe@email.com", "password", true);
+export function getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));
+}
 
-const profile1 = new Profile(1, 1, "2020-01-01", "2020-01-01", "https://th.bing.com/th/id/OIP.E4gCagrjAkQ5td5qjSc3rwHaE7?pid=ImgDet&rs=1");
+export const logoutBtn = document.getElementById("logout");
+if (logoutBtn) logoutBtn.addEventListener('click', logout)
 
-const comment1 = new Comment(1, "This is a comment!", "2020-01-01", 1, 1);
-
-const project1 = new Project(1, "Project 1", "github link", "", "This is the first project", 2, [comment1], ["tag1", "tag2"]);
-
-
-let form = document.getElementById("signup");
-form.addEventListener('submit', addUser);
-
-function addUser(e) {
-    e.preventDefault();
-
-    newUser = new User(
-        2,
-        document.getElementById("userName").value,
-        document.getElementById("email").value,
-        document.getElementById("pswd").value,
-        document.getElementById("birthDate").value,
-        false
-    );
-
-    console.log(newUser);
+export function logout() {
+    removeCurrentUser();
+    window.location.href = "login.html";
 }

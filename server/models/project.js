@@ -10,3 +10,7 @@ const projects = [
         projectTags: ["tag1", "tag2"]
     }
 ]
+
+let getAllProjects = () => projects;
+
+module.exports = { getAllProjects };

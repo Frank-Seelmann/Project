@@ -7,3 +7,7 @@ const comments = [
         projectId: 1
     }
 ]
+
+let getAllComments = () => comments;
+
+module.exports = { getAllComments };

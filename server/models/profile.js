@@ -14,3 +14,7 @@ const profiles = [
         profilePicture: ""
     }
 ]
+
+let getAllProfiles = () => profiles;
+
+module.exports = { getAllProfiles };
