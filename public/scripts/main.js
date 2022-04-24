@@ -4,15 +4,18 @@ if (loginbadge = document.getElementById('loginbadge')) {
     if (user = getCurrentUser()) {
         loginbadge.innerHTML =
             `
-    <div class="white">Hello ${user.userName}!</div>
+    <ul class="navbar-nav white">
+        <li class="nav-link">Hello ${user.userName}! </li>
+        <li class="nav-link"><a id="logout">Logout</a></li>
+    </ul>
     `;
     } else {
         loginbadge.innerHTML = `
     <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-link">
             <a href="login.html" class="justify-content-end"><button type="button" class="btn btn-outline-secondary justify-content-end">Login</button></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-link">
             <a href="signup.html" class="justify-content-end"><button type="button" class="btn btn-outline-primary justify-content-end">Sign Up</button></a>
         </li>
     </ul>
