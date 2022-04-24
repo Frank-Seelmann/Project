@@ -7,9 +7,10 @@ router
     try {
       const projects = Project.getAllProjects();
       res.send(projects);
-    } catch(err) {
-      res.status(401).send({message: err.message});
+      console.log(projects)
+    } catch (err) {
+      res.status(401).send({ message: err.message });
     }
   })
 
-  module.exports = router;
+module.exports = router;
