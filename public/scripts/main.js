@@ -1,11 +1,11 @@
 let user;
-let loginbadge
+let loginbadge;
 if (loginbadge = document.getElementById('loginbadge')) {
     if (user = getCurrentUser()) {
         loginbadge.innerHTML =
             `
     <ul class="navbar-nav white">
-        <li class="nav-link">Hello, ${user.userName}! </li>
+        <li class="nav-link"><a href="profile.html"> Hello, ${user.userName}! </a></li>
         <li class="nav-link"><a id="logout"> Logout</a></li>
     </ul>
     `;

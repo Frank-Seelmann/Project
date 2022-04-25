@@ -1,5 +1,3 @@
-import { getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData } from './main.js'
-
 let projects
 Array.projects = await getAllProjects();
 console.log("Projects: ", projects);
@@ -28,31 +26,6 @@ if (projects) {
         displayProjectHTML.innerHTML += section;
     });
 }
-
-/*async function getAllProjects() {
-    return await fetch('/projects/')
-    .then((data) => {
-        if(!data.message) {
-            console.log(data.json);
-            return data;
-        }
-    })
-    .catch((error) => {
-        const errText = error.message;
-        console.log(`Error! ${errText}`)
-    });
-}*/
-
-/*async function getAllProjects() {
-    let url = '/projects/';
-    try {
-        let res = await fetch(url);
-        console.log(res);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
-    }
-}*/
 
 async function getAllProjects() {
     fetch('http://localhost:3000/projects/')
@@ -83,22 +56,3 @@ async function getAllProjects() {
         }));
 
 }
-
-/*async function renderUsers() {
-    let projects = await getAllProjects();
-    let html = '';
-    projects.forEach(user => {
-        let htmlSegment = `<div class="user">
-                            <img src="${user.profileURL}" >
-                            <h2>${user.firstName} ${user.lastName}</h2>
-                            <div class="email"><a href="email:${user.email}">${user.email}</a></div>
-                        </div>`;
-
-        html += htmlSegment;
-    });
-
-    let container = document.querySelector('.container');
-    container.innerHTML = html;
-}
-
-renderUsers();*/
