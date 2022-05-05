@@ -30,7 +30,7 @@ function register(e) {
   e.preventDefault();
 
   fetchData('/users/register', {
-    username: document.getElementById("username").value, 
+    userName: document.getElementById("username").value, 
     password: document.getElementById("pswd").value, 
     email: document.getElementById("email").value, 
     birthDate: document.getElementById("birthDate").value, 

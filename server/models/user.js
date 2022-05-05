@@ -33,7 +33,7 @@ async function register(user) {
   const u = userExists(user.userName);
   if (u.length > 0) throw Error('Username already exists')
 
-  const sql = `INSERT INTO users (userName, userEmail, password, birthDate, isAdmin) VALUES ("${user.username}", "${user.email}", "${user.password}", "${user.birthDate}", ${user.isAdmin})`;
+  const sql = `INSERT INTO users (userName, userEmail, password, birthDate, isAdmin) VALUES ("${user.userName}", "${user.email}", "${user.password}", "${user.birthDate}", ${user.isAdmin})`;
 
   const insert = await con.query(sql);
   const newUser = await getUser(user);
