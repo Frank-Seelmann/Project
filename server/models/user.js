@@ -6,7 +6,7 @@ async function createTable() {
     userName VARCHAR(255) NOT NULL UNIQUE,
     userEmail VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    birthDate DATE,
+    birthDate VARCHAR(255),
     isAdmin BOOLEAN,
     CONSTRAINT user_pk PRIMARY KEY (userId)
   );`;
@@ -14,47 +14,31 @@ async function createTable() {
 }
 createTable();
 
-const users = [
-  {
-    userId: 1,
-    userName: "John Doe",
-    userEmail: "jdoe@email.com",
-    password: "password",
-    birthDate: "01/01/2000",
-    isAdmin: true
-  },
-  {
-    userId: 2,
-    userName: "Jane Doe",
-    userEmail: "janedoe@email.com",
-    password: "password2",
-    birthDate: "02/02/2000",
-    userIsAdmin: false,
-  },
-]
-
 //function to get all users
 let getUsers = async() => {
   const sql = "SELECT * FROM users";
   return await con.query(sql);
 };
 
-async function login(username, password) {
-  const user = await userExists(username);
-  if (!user[0]) throw Error('User not found');
-  if (user[0].password !== password) throw Error('Password is incorrect.');
+async function login(userName, password) {
+  const user = await userExists(userName);
+  if(!user[0]) throw Error('User not found')
+  if(user[0].password !== password) throw Error("Password is incorrect");
 
   return user[0];
 }
 
 async function register(user) {
-  const u = userExists(user.username);
+  console.log(user.birthDate)
+  const u = userExists(user.userName);
   if (u.length > 0) throw Error('Username already exists')
 
   const sql = `INSERT INTO users (userName, userEmail, password, birthDate, isAdmin) VALUES ("${user.username}", "${user.email}", "${user.password}", "${user.birthDate}", ${user.isAdmin})`;
 
   const insert = await con.query(sql);
   const newUser = await getUser(user);
+
+  console.log(newUser)
 
   return newUser[0];
 }
@@ -64,8 +48,8 @@ async function deleteUser(userId) {
   await con.query(sql);
 }
 
-async function userExists(username) {
-  const sql = `SELECT * FROM users WHERE username = "${username}"`;
+async function userExists(userName) {
+  const sql = `SELECT * FROM users WHERE userName = "${userName}"`;
   let u = await con.query(sql);
   console.log(u)
   return u;
@@ -73,7 +57,7 @@ async function userExists(username) {
 
 async function getUser(user) {
   let sql;
-  if (user.userId) {
+  if(user.userId) {
     sql = `SELECT * FROM users WHERE userId = ${user.userId}`;
   } else {
     sql = `SELECT * FROM users WHERE userName = "${user.userName}"`;

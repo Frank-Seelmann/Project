@@ -18,6 +18,6 @@ const query = (sql, binding) => {
 };
 
 const createQuery = "CREATE DATABASE IF NOT EXISTS new_table2;";
-con,query(createQuery);
+con.query(createQuery);
 
 module.exports = { con, query };
