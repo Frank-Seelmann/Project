@@ -46,6 +46,8 @@ async function register(user) {
 async function deleteUser(userId) {
   const sql = `DELETE FROM users WHERE userId = ${userId}`;
   await con.query(sql);
+  sql = `DELETE FROM profiles WHERE userId = ${userId}`;
+  await con.query(sql);
 }
 
 async function userExists(userName) {

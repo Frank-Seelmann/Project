@@ -1,20 +1,42 @@
-const profiles = [
-    {
-        profileId: 1,
-        userId: 1,
-        dateCreated: "2020-01-01",
-        lastLoginDate: "2020-01-01",
-        profilePicture: "https://th.bing.com/th/id/OIP.E4gCagrjAkQ5td5qjSc3rwHaE7?pid=ImgDet&rs=1"
-    },
-    {
-        profileId: 2,
-        userId: 2,
-        dateCreated: "2020-01-01",
-        lastLoginDate: "2020-01-01",
-        profilePicture: ""
-    }
-]
+const con = require('./db_connect');
 
-let getAllProfiles = () => profiles;
+async function createTable() {
+    let sql = ` CREATE TABLE IF NOT EXISTS profiles (
+        profileId INT NOT NULL AUTO_INCREMENT,
+        userId INT NOT NULL,
+        dateCreated VARCHAR(255),
+        lastLoginDate VARCHAR(255),
+        profilePicture BLOB,
+        CONSTRAINT profile_pk PRIMARY KEY (profileId)
+    );`;
+    await con.query(sql);
+}
+createTable();
 
-module.exports = { getAllProfiles };
+//function to get all profiles
+let getProfiles = async() => {
+    const sql = "SELECT * FROM profiles";
+    return await con.query(sql);
+};
+
+async function createProfile(user) {
+    const sql = `INSERT INTO profiles (userId, dateCreated, lastLoginDate, profilePicture) VALUES ("${user.userId}", "${user.dateCreated}", "${user.lastLoginDate}", "${user.profilePicture}")`;
+    await con.query(sql);
+    const newProfile = await getProfile(user.userId);
+    return newProfile[0];
+}
+
+async function getProfile(userId) {
+    const sql = `SELECT * FROM profiles WHERE userId = ${userId}`;
+    let p = await con.query(sql);
+    return p;
+}
+
+async function updateLastLogin(userId) {
+    const sql = `UPDATE profiles SET lastLoginDate = NOW() WHERE userId = ${userId}`;
+    await con.query(sql);
+    const updatedProfile = await getProfile(userId);
+    return updatedProfile[0];
+}
+
+module.exports = { getProfiles, createProfile, getProfile, updateLastLogin };
