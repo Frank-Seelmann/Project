@@ -3,11 +3,11 @@ const Project = require('../models/project');
 const router = express.Router();
 
 router
-  .get('/', (req, res) => {
+  .get('/', async (req, res) => {
     try {
-      const projects = Project.getAllProjects();
+      const projects = await Project.getAllProjects();
       res.send(projects);
-      console.log(projects)
+      console.log('router get/ ', projects)
     } catch (err) {
       res.status(401).send({ message: err.message });
     }

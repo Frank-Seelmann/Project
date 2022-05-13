@@ -11,22 +11,32 @@
 
 <body>
     <main>
-        <form action="#">
+        <form action="#" id="proj-form">
             <h2>New Project</h2>
             <label for="projectName">Project Name</label>
             <input type="text" name="projectName" id="projectName">
             <br>
-            <label for="projectThumbnail">Project Thumbnail</label>
+            <label for="projectThumbnail">Project Thumbnail Link</label>
             <input type="text" name="projectThumbnail" id="projectThumbnail">
             <br>
             <label for="projectGitHub">Project GitHub Link</label>
             <input type="text" name="projectGitHub" id="projectGitHub">
             <br>
+            <label for="projectTags">Project Tags</label>
+            <input type="text" name="projectTags" id="projectTags">
+            <br>
             <label for="projectText">Project Text</label>
             <br>
             <textarea name="projectText" id="projectText" rows="4" cols="50"></textarea>
+            <br>
+            <input type="submit" value="Submit">
         </form>
     </main>
+
+    <script type="module" src="./scripts/main.js"></script>
+    <script type="module" src="./scripts/user-script.js"></script>
+    <script type="module" src="./scripts/displayProjects.js"></script>
+
 </body>
 
 </html>

@@ -7,6 +7,7 @@ router
         try {
             const users = await User.getUsers();
             res.send(users);
+            console.log('router get/ ', users)
         } catch (err) {
             res.status(401).send({ message: err.message });
         }

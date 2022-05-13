@@ -16,7 +16,7 @@ function createTable() {
 }
 createTable();
 
-let getAllProjects = async() => {
+let getAllProjects = async () => {
     const sql = "SELECT * FROM projects";
     return await con.query(sql);
 };
