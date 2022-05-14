@@ -14,7 +14,7 @@ async function createTable() {
 createTable();
 
 //function to get all profiles
-let getAllProfiles = async() => {
+let getAllProfiles = async () => {
     const sql = "SELECT * FROM profiles";
     return await con.query(sql);
 };
@@ -34,7 +34,13 @@ async function getProfile(userId) {
 }
 
 async function updateLastLogin(userId) {
-    const sql = `UPDATE profiles SET lastLoginDate = NOW() WHERE userId = ${userId}`;
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    today = mm + '/' + dd + '/' + yyyy;
+
+    const sql = `UPDATE profiles SET lastLoginDate = "${today}" WHERE userId = ${userId}`;
     await con.query(sql);
     const updatedProfile = await getProfile(userId);
     return updatedProfile[0];

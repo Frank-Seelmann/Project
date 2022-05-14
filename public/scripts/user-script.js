@@ -3,18 +3,18 @@ import { fetchData, getCurrentUser, setCurrentUser, removeCurrentUser } from './
 const loginForm = document.getElementById("login-form");
 if (loginForm) loginForm.addEventListener('submit', login);
 
-function login(e) {
+async function login(e) {
   e.preventDefault();
 
   const name = document.getElementById("username").value;
   const pswd = document.getElementById("pswd").value;
-  fetchData('/users/login', { username: name, password: pswd }, "POST")
+  await fetchData('/users/login', { username: name, password: pswd }, "POST")
     .then((data) => {
       if (!data.message) {
         setCurrentUser(data);
 
 
-        window.location.href = "home.html";
+        //window.location.href = "home.html";
       }
     })
     .catch((error) => {
@@ -23,6 +23,22 @@ function login(e) {
       document.getElementById("pswd").value = "";
       console.log(`Error! ${errText}`)
     });
+
+  let user = await getCurrentUser();
+
+  await fetchData('/profiles/lastLogin', { userId: user.userId }, "PUT")
+    .then(res => res.json())
+    .then((data) => {
+      if (!data.message) {
+        console.log(data.success)
+      }
+    })
+    .catch((error) => {
+      const errText = error.message;
+      document.querySelector("#login-form p.error").innerHTML = errText;
+      console.log(`Error! ${errText}`)
+    });
+
 }
 
 const regForm = document.getElementById("reg-form");
