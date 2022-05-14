@@ -1,20 +1,20 @@
-import 
-{ getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData } 
-from './main.js'
+import { getCurrentUser, setCurrentUser, removeCurrentUser, logout, fetchData }
+  from './main.js'
 
 
 let user = getCurrentUser();
-let userProfile = getProfile(user.userId);
-if(!user) window.location.href = "login.html";
+let userProfile = await getProfile(user.userId);
+console.log("Uh ", userProfile)
+if (!user) window.location.href = "login.html";
 
 let profile = document.getElementById("profile");
 profile.innerHTML = `
 <div class="card p-4 marginbottom">
-<div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> <span class="name mt-3">${user.userName}</span>
+<div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="${userProfile.profilePicture}" height="100" width="100" /></button> <span class="name mt-3">${user.userName}</span>
     <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">1069 <span class="follow">Followers</span></span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="edit">Edit Profile</button> </div>
     <div id="editForm" class="hide"></div>
-    <div class="text mt-3"> <span>${user.userName} was born on ${user.birthDate}<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
+    <div class="text mt-3"> <span>${user.userName} was born on ${user.birthDate}<br><br></span> </div>
     <div class=" px-2 rounded mt-4 date "> <span class="join">Joined ${userProfile.dateCreated}</span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="delete">Delete Account</button> </div>
 </div>
@@ -61,54 +61,58 @@ function editAccount(e) {
   e.preventDefault();
 
   let userName = document.getElementById("username").value;
-  if(userName === user.username) {
+  if (userName === user.username) {
     let err = "No changes made";
     document.querySelector("#editForm p.error").innerHTML = err;
   } else {
-    fetchData('/users/edit', {userId: user.userId, userName: userName}, "PUT")
-    .then((data) => {
-      if(!data.message) {
-        removeCurrentUser();
-        setCurrentUser(data);
-        window.location.href = "profile.html"
-      }
-    })
- 
-    .catch((error) => {
-       const errText = error.message;
-       document.querySelector("#editForm p.error").innerHTML = errText;
-       console.log(`Error! ${errText}`)
-     });
-  
+    fetchData('/users/edit', { userId: user.userId, userName: userName }, "PUT")
+      .then((data) => {
+        if (!data.message) {
+          removeCurrentUser();
+          setCurrentUser(data);
+          window.location.href = "profile.html"
+        }
+      })
+
+      .catch((error) => {
+        const errText = error.message;
+        document.querySelector("#editForm p.error").innerHTML = errText;
+        console.log(`Error! ${errText}`)
+      });
+
   }
 }
 
 function deleteAccount() {
-  if(confirm('Are you sure you want to delete your account???')) {
-    fetchData('/users/delete', {userId: user.userId}, "DELETE")
+  if (confirm('Are you sure you want to delete your account???')) {
+    fetchData('/users/delete', { userId: user.userId }, "DELETE")
+      .then((data) => {
+        if (!data.message) {
+          console.log(data.success)
+          logout();
+          window.location.href = "signup.html"
+        }
+      })
+      .catch((error) => {
+        const errText = error.message;
+        document.querySelector("#profile div p.error").innerHTML = errText;
+        console.log(`Error! ${errText}`)
+      })
+  }
+}
+
+async function getProfile(userId) {
+  return await fetch(`/profiles/${userId}`)
+    .then(res => res.json())
     .then((data) => {
-      if(!data.message) {
-        console.log(data.success)
-        logout();
-        window.location.href = "signup.html"
-      }
+      console.log(data)
+      console.log(data[0])
+      console.log(data[0].profileId)
+      return data[0];
     })
     .catch((error) => {
       const errText = error.message;
       document.querySelector("#profile div p.error").innerHTML = errText;
       console.log(`Error! ${errText}`)
     })
-  }
-}
-
-function getProfile(userId) {
-  return fetchData('/users/profile', {userId: userId})
-  .then((data) => {
-    return data;
-  })
-  .catch((error) => {
-    const errText = error.message;
-    document.querySelector("#profile div p.error").innerHTML = errText;
-    console.log(`Error! ${errText}`)
-  })
 }
