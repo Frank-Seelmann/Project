@@ -12,6 +12,15 @@ router
       res.status(401).send({ message: err.message });
     }
   })
+  .get('/:id', async (req, res) => {
+    try {
+      const project = await Project.getProjectById(req.params.id);
+      res.send(project);
+      console.log('router get/:id ', project)
+    } catch (err) {
+      res.status(401).send({ message: err.message });
+    }
+  })
   .post('/create', async (req, res) => {
     try {
       const project = await Project.createProject(req.body);

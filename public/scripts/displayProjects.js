@@ -42,11 +42,11 @@ async function getAllProjects() {
             <div class="card-body">
                 <h2>${project.projectName}</h2>
                 <p>${project.projectText}</p>
-                <p>${project.projectGitHub}</p>
+                <a href="${project.projectGitHub}"<p>Github Repo</p></a>
                 <p>${project.projectLikes} likes</p>
                 <p>${project.projectCommentIds} comments</p>
                 <p>${project.projectTags}</p>
-                <form action="#">
+                <form action="#" id="comment-form>
                     <textarea name="comment" id="comment" rows="2" cols="30"></textarea>
                     <br>
                     <label for="comment"><button type="button" class="btn btn-primary" id="newComment">
