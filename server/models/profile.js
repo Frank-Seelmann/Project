@@ -33,17 +33,15 @@ async function getProfile(userId) {
     return p;
 }
 
-async function updateLastLogin(userId) {
+async function updateLastLogin(pro) {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = today.getFullYear();
     today = mm + '/' + dd + '/' + yyyy;
-
-    const sql = `UPDATE profiles SET lastLoginDate = "${today}" WHERE userId = ${userId}`;
-    await con.query(sql);
-    const updatedProfile = await getProfile(userId);
-    return updatedProfile[0];
+    console.log(today, " ", pro)
+    const sql = `UPDATE profiles SET lastLoginDate = "${today}" WHERE profileId = ${pro.profileId}`;
+    return await con.query(sql);
 }
 
 module.exports = { getAllProfiles, createProfile, getProfile, updateLastLogin };

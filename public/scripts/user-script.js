@@ -25,12 +25,14 @@ async function login(e) {
     });
 
   let user = await getCurrentUser();
+  let pro = await getProfile(user.userId);
 
-  await fetchData('/profiles/lastLogin', { userId: user.userId }, "PUT")
-    .then(res => res.json())
+  await fetchData('/profiles/lastLogin', { profileId: pro.profileId }, "PUT")
+    //.then(res => res.json())
     .then((data) => {
       if (!data.message) {
         console.log(data.success)
+        window.location.href = "home.html";
       }
     })
     .catch((error) => {
@@ -102,4 +104,20 @@ async function register(e) {
       document.querySelector("#reg-form p.error").innerHTML = errText;
       console.log(`Error! ${errText}`)
     });
+}
+
+async function getProfile(userId) {
+  return await fetch(`/profiles/${userId}`)
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data)
+      console.log(data[0])
+      console.log(data[0].profileId)
+      return data[0];
+    })
+    .catch((error) => {
+      const errText = error.message;
+      document.querySelector("#profile div p.error").innerHTML = errText;
+      console.log(`Error! ${errText}`)
+    })
 }
