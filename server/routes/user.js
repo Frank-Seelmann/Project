@@ -13,6 +13,16 @@ router
         }
     })
 
+    .get('/:userName', async (req, res) => {
+        try {
+            const user = await User.getUserByName(req.params.userName);
+            res.send(user);
+            console.log('router get/:userName ', user)
+        } catch (err) {
+            res.status(401).send({ message: err.message });
+        }
+    })
+
     .post('/login', async (req, res) => {
         try {
             const user = await User.login(req.body.username, req.body.password);

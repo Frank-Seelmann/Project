@@ -44,7 +44,7 @@ async function register(user) {
 }
 
 async function deleteUser(userId) {
-  const sql = `DELETE FROM users WHERE userId = ${userId}`;
+  let sql = `DELETE FROM users WHERE userId = ${userId}`;
   await con.query(sql);
   sql = `DELETE FROM profiles WHERE userId = ${userId}`;
   await con.query(sql);
@@ -67,6 +67,11 @@ async function getUser(user) {
   return await con.query(sql);
 }
 
+async function getUserByName(userName) {
+  const sql = `SELECT * FROM users WHERE userName = "${userName}"`;
+  return await con.query(sql);
+}
+
 async function editUser(user) {
   const sql = `update users set userName = "${user.userName}" where userId = ${user.userId}`;
 
@@ -76,4 +81,4 @@ async function editUser(user) {
 }
 
 //export to use in other files
-module.exports = { getUsers, login, register, deleteUser, userExists, getUser, editUser };
+module.exports = { getUsers, login, register, deleteUser, userExists, getUser, editUser, getUserByName };

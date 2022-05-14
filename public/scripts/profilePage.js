@@ -4,7 +4,7 @@ from './main.js'
 
 
 let user = getCurrentUser();
-
+let userProfile = getProfile(user.userId);
 if(!user) window.location.href = "login.html";
 
 let profile = document.getElementById("profile");
@@ -14,8 +14,8 @@ profile.innerHTML = `
     <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">1069 <span class="follow">Followers</span></span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="edit">Edit Profile</button> </div>
     <div id="editForm" class="hide"></div>
-    <div class="text mt-3"> <span>${user.userName} is a creator of minimalistic x bold graphics and digital artwork.<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
-    <div class=" px-2 rounded mt-4 date "> <span class="join">Joined May,2021</span> </div>
+    <div class="text mt-3"> <span>${user.userName} was born on ${user.birthDate}<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
+    <div class=" px-2 rounded mt-4 date "> <span class="join">Joined ${userProfile.dateCreated}</span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="delete">Delete Account</button> </div>
 </div>
 </div>
@@ -90,7 +90,7 @@ function deleteAccount() {
       if(!data.message) {
         console.log(data.success)
         logout();
-        window.location.href = "register.html"
+        window.location.href = "signup.html"
       }
     })
     .catch((error) => {
@@ -99,4 +99,16 @@ function deleteAccount() {
       console.log(`Error! ${errText}`)
     })
   }
+}
+
+function getProfile(userId) {
+  return fetchData('/users/profile', {userId: userId})
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    const errText = error.message;
+    document.querySelector("#profile div p.error").innerHTML = errText;
+    console.log(`Error! ${errText}`)
+  })
 }
