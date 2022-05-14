@@ -68,7 +68,7 @@ async function getUser(user) {
 }
 
 async function editUser(user) {
-  const sql = `UPDATE users SET userName = "${user.userName}" WHERE userId = ${user.userId}`;
+  const sql = `update users set userName = "${user.userName}" where userId = ${user.userId}`;
 
   const update = await con.query(sql);
   const newUser = await getUser(user);

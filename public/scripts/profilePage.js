@@ -13,6 +13,7 @@ profile.innerHTML = `
 <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> <span class="name mt-3">${user.userName}</span>
     <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">1069 <span class="follow">Followers</span></span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="edit">Edit Profile</button> </div>
+    <div id="editForm" class="hide"></div>
     <div class="text mt-3"> <span>${user.userName} is a creator of minimalistic x bold graphics and digital artwork.<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div>
     <div class=" px-2 rounded mt-4 date "> <span class="join">Joined May,2021</span> </div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="delete">Delete Account</button> </div>
@@ -54,6 +55,32 @@ function editProfile() {
   document.getElementById("cancel").addEventListener('click', (e) => {
     window.location.href = "profile.html";
   })
+}
+
+function editAccount(e) {
+  e.preventDefault();
+
+  let userName = document.getElementById("username").value;
+  if(userName === user.username) {
+    let err = "No changes made";
+    document.querySelector("#editForm p.error").innerHTML = err;
+  } else {
+    fetchData('/users/edit', {userId: user.userId, userName: userName}, "PUT")
+    .then((data) => {
+      if(!data.message) {
+        removeCurrentUser();
+        setCurrentUser(data);
+        window.location.href = "profile.html"
+      }
+    })
+ 
+    .catch((error) => {
+       const errText = error.message;
+       document.querySelector("#editForm p.error").innerHTML = errText;
+       console.log(`Error! ${errText}`)
+     });
+  
+  }
 }
 
 function deleteAccount() {

@@ -6,7 +6,7 @@ async function createTable() {
         userId INT NOT NULL,
         dateCreated VARCHAR(255),
         lastLoginDate VARCHAR(255),
-        profilePicture BLOB,
+        profilePicture VARCHAR(65535),
         CONSTRAINT profile_pk PRIMARY KEY (profileId)
     );`;
     await con.query(sql);
