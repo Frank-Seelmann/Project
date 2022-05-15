@@ -44,4 +44,9 @@ async function updateLastLogin(pro) {
     return await con.query(sql);
 }
 
-module.exports = { getAllProfiles, createProfile, getProfile, updateLastLogin };
+async function changeProfilePicture(pro) {
+    const sql = `UPDATE profiles SET profilePicture = "${pro.profilePicture}" WHERE profileId = ${pro.profileId}`;
+    return await con.query(sql);
+}
+
+module.exports = { getAllProfiles, createProfile, getProfile, updateLastLogin, changeProfilePicture };

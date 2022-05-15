@@ -11,7 +11,9 @@ let profile = document.getElementById("profile");
 profile.innerHTML = `
 <div class="card p-4 marginbottom">
 <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="${userProfile.profilePicture}" height="100" width="100" /></button> <span class="name mt-3">${user.userName}</span>
-    <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">1069 <span class="follow">Followers</span></span> </div>
+    <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">0 <span class="follow">projects liked</span></span> </div>
+    <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="change">Change Profile Pic</button> </div>
+    <div id="changeForm" class="hide"></div>
     <div class=" d-flex mt-2"> <button class="btn1 btn-dark" id="edit">Edit Profile</button> </div>
     <div id="editForm" class="hide"></div>
     <div class="text mt-3"> <span>${user.userName} was born on ${user.birthDate}<br><br></span> </div>
@@ -23,6 +25,54 @@ profile.innerHTML = `
 
 document.getElementById("edit").addEventListener('click', editProfile);
 document.getElementById("delete").addEventListener('click', deleteAccount);
+document.getElementById("change").addEventListener('click', changeProfilePic);
+
+function changeProfilePic() {
+  profile.classList.toggle("hide");
+  let changeForm = document.getElementById("changeForm");
+  changeForm.innerHTML = `
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <form id="form" class="basic-form">
+      <p class="error"></p>
+      <h2>Change Profile Picture</h2>
+      <label for="profilePicture">Change Profile Pic URL</label>
+      <input type="text" name="profilePicture" id="profilePicture">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    <button class="btn" id="cancel">Cancel</button>
+    </div>
+  `;
+
+  changeForm.addEventListener('submit', editProfilePic)
+  document.getElementById("cancel").addEventListener('click', (e) => {
+    window.location.href = "profile.html";
+  })
+}
+
+function editProfilePic(e) {
+  e.preventDefault();
+
+  let newURL = document.getElementById("profilePicture").value;
+
+  if (newURL === userProfile.profilePicture) {
+    let err = "No changes made";
+    document.querySelector("#changeForm p.error").innerHTML = err;
+  } else {
+    fetchData('/profiles/changeProfilePicture', { profileId: userProfile.profileId, profilePicture: newURL }, "PUT")
+      .then((data) => {
+        if (!data.message) {
+          window.location.href = "profile.html"
+        }
+      })
+      .catch((error) => {
+        const errText = error.message;
+        document.querySelector("#changeForm p.error").innerHTML = errText;
+        console.log(`Error! ${errText}`)
+      });
+
+  }
+}
 
 function editProfile() {
   profile.classList.toggle("hide");
