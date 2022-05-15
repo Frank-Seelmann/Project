@@ -31,7 +31,7 @@ function changeProfilePic() {
   profile.classList.toggle("hide");
   let changeForm = document.getElementById("changeForm");
   changeForm.innerHTML = `
-    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-left">
     <form id="form" class="basic-form">
       <p class="error"></p>
       <h2>Change Profile Picture</h2>
@@ -40,7 +40,9 @@ function changeProfilePic() {
       <br>
       <input type="submit" value="Submit">
     </form>
-    <button class="btn" id="cancel">Cancel</button>
+    </div>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-left">
+    <button class="btn btn-secondary" id="cancel">Cancel</button>
     </div>
   `;
 
@@ -78,7 +80,7 @@ function editProfile() {
   profile.classList.toggle("hide");
   let editForm = document.getElementById("editForm");
   editForm.innerHTML = `
-    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-left">
     <form id="form" class="basic-form">
       <p class="error"></p>
       <h2>Edit Profile</h2>
@@ -88,7 +90,7 @@ function editProfile() {
       <input type="submit" value="Submit">
     </form>
     </div>
-    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-left">
     <form id="passForm" class="basic-form">
       <p class="error"></p>
       <h2>Change Password</h2>
@@ -97,7 +99,9 @@ function editProfile() {
       <br>
       <input type="submit" value="Submit">
     </form>
-    <button class="btn" id="cancel">Cancel</button>
+    </div>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-left">
+    <button class="btn btn-secondary" id="cancel">Cancel</button>
     </div>
   `;
 
