@@ -4,32 +4,7 @@ let projects
 Array.projects = await getAllProjects();
 console.log("Projects: ", projects);
 let displayProjectHTML = document.getElementById("displayProject");
-if (displayProjectHTML) {
-    if (projects) {
-        projects.forEach((project) => {
-            let section =
-                `
-    <img class="card-img-top" src="${project.getProjectThumbnail()}" alt="Card image cap">
-        <div class="card-body">
-            <h2>${project.getProjectName()}</h2>
-            <p>${project.getProjectText()}</p>
-            <p>${project.getProjectGitHub()}</p>
-            <p>${project.getProjectLikes()} likes</p>
-            <p>${project.getProjectComments()} comments</p>
-            <p>${project.getProjectTags()}</p>
-            <form action="#">
-                <textarea name="comment" id="comment" rows="2" cols="30"></textarea>
-                <br>
-                <label for="comment"><button type="button" class="btn btn-primary" id="newComment">
-                <i class="fa-solid fa-comment"></i> Add comment</button></label>
-            </form>
-            
-        </div>
-    `
-            displayProjectHTML.innerHTML += section;
-        });
-    }
-}
+
 
 async function getAllProjects() {
     fetch('/projects/')
@@ -37,15 +12,15 @@ async function getAllProjects() {
         .then((data) => data.forEach((project) => {
             let section =
                 `
-            <div class="card" style="width: 22rem;">
+            <div class="card" style="width: 24rem;">
         <img class="card-img-top" src="${project.projectThumbnail}" alt="Card image cap">
             <div class="card-body">
                 <h2>${project.projectName}</h2>
                 <p>${project.projectText}</p>
                 <a href="${project.projectGitHub}"<p>Github Repo</p></a>
-                <p>${project.projectLikes} likes</p>
-                <p>${project.projectCommentIds} comments</p>
                 <p>${project.projectTags}</p>
+                <p>${project.projectLikes} likes</p>
+                <!--<p>${project.projectCommentIds} comments</p>-->
                 <form action="#" id="comment-form>
                     <textarea name="comment" id="comment" rows="2" cols="30"></textarea>
                     <br>
@@ -69,6 +44,7 @@ function createProject(e) {
     fetchData('/projects/create', {
         projectName: document.getElementById("projectName").value,
         projectText: document.getElementById("projectText").value,
+        projectThumbnail: document.getElementById("projectThumbnail").value,
         projectGitHub: document.getElementById("projectGitHub").value,
         projectLikes: 0,
         projectComments: 0,
