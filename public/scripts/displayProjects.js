@@ -1,9 +1,11 @@
 import { fetchData } from './main.js';
 
+let displayProjectHTML = document.getElementById("displayProject");
+if(displayProjectHTML) {
 let projects
 Array.projects = await getAllProjects();
 console.log("Projects: ", projects);
-let displayProjectHTML = document.getElementById("displayProject");
+}
 
 
 async function getAllProjects() {
