@@ -26,7 +26,7 @@ Currently users can signup/login, edit their profile (username, password, and pr
 
 ## Entity Relationships
 
-![ERD](readmeImages/ERD.png)
+![ERD](readmeImages/ERD.PNG)
 
 ### Users Table
 
