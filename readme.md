@@ -114,7 +114,7 @@ git clone github.com/Frank-Seelmann/Web-Development-Course-Project
 ```
 
 ### Configuration
-To allow the project to create MySQL tables locally, you will need to set following values in a .env file:
+To allow the project to create MySQL tables locally, you will need to set the following values in a .env file:
 ```sh
 MYSQL_HOST= most likely localhost
 MYSQL_USERNAME= most likely root
